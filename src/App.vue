@@ -1,11 +1,28 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <router-link class="nav-link" to="/">Home</router-link>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <router-view />
 </template>
 
+<script>
+import { mapActions } from "vuex";
+
+export default {
+  created(){
+    this.setMovies();
+  },
+  methods: {
+    ...mapActions('movies',['setMovies'])
+  }
+}
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
