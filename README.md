@@ -1,4 +1,6 @@
-# vuex-on-large-projects
+# Vuex On Large Projects
+
+* Demo :https://vuex-on-large-projects.netlify.app/
 
 ## Project setup
 ```
