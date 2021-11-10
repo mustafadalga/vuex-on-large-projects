@@ -7,6 +7,12 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/movie/:id',
+    name: 'MovieDetail',
+    props:true,
+    component: () => import(/* webpackChunkName: "movieDetail" */ '../views/MovieDetail.vue')
+  }
 ]
 
 const router = createRouter({

@@ -1,25 +1,40 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark mb-5">
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <router-link class="nav-link" to="/">Home</router-link>
+          <router-link class="nav-link text-white" to="/">Home</router-link>
         </li>
       </ul>
     </div>
   </nav>
-  <router-view />
+
+<div class="my-3">
+  <Notification
+      v-for="notification in getNotifications"
+      :key="notification"
+      :notification="notification"/>
+</div>
+
+  <router-view/>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions,mapGetters } from "vuex";
+import Notification from "@/components/Notification";
 
 export default {
-  created(){
+  components: { Notification },
+  computed:{
+    ...mapGetters('notifications',['getNotifications']),
+  },
+  created() {
+    this.setUserInformation();
     this.setMovies();
   },
   methods: {
-    ...mapActions('movies',['setMovies'])
+    ...mapActions('movies', [ 'setMovies' ]),
+    ...mapActions('auth', [ 'setUserInformation' ])
   }
 }
 </script>
