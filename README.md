@@ -1,6 +1,8 @@
 # Vuex On Large Projects
 
+* Blog post : https://insight.heybooster.ai/vuex-on-large-projects-how-to-structure-it/
 * Demo :https://vuex-on-large-projects.netlify.app/
+
 
 ## Project setup
 ```
