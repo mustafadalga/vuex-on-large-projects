@@ -1,22 +1,20 @@
 <template>
   <div class="row">
-    <Movie  v-for="movie in getMovies" :movie="movie" :key="movie.id"/>
+    <Movie v-for="movie in movies" :movie="movie" :key="movie.id"/>
   </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex";
 import Movie from "@/components/Movie";
+
 export default {
   name: "Movies",
   components: { Movie },
-  computed: {
-    ...mapGetters('movies', [ 'getMovies' ])
-  }
-
+  props: {
+    movies: {
+      type: Array,
+      required: true,
+    }
+  },
 }
 </script>
-
-<style scoped>
-
-</style>

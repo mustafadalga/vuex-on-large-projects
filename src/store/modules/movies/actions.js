@@ -1,14 +1,15 @@
 import axios from "axios";
 
 export default {
-    async setMovies({state, commit }) {
+    async setMovies({rootState,state, commit }) {
         try {
             const url=`https://api.themoviedb.org/3/movie/popular?api_key=${state.apiKey}`
             const response = await axios.get(url);
 
             const movies = response.data.results.map(movie => ({
                 ...movie,
-                bookmarkStatus: false
+                bookmarkStatus: false,
+                email: rootState.auth.user.email
             }));
 
             commit('setMovies', movies);
@@ -30,17 +31,22 @@ export default {
              API PROCESS
             ...........
            const response=await axios.post('add-movie-bookmark',data);
+           const data=response.data.data
             ...........
              */
 
             commit('changeMovieBookmarkStatus', {
                 id: movieID,
-                status: true
+                status:true,
+                // status: data.status,
+                // bookmarkEmail: data.email,
+                // userEmail: rootState.auth.user.email,
+                commit: commit
             });
 
         } catch (error) {
 
-            const notification = "An error occurred during adding movie.Please try again.";
+            const notification = "An error occurred during adding movie to bookmark.Please try again.";
             commit("notifications/setNotification", notification, { root: true })
         }
     },
@@ -65,7 +71,7 @@ export default {
             });
 
         } catch (error) {
-            const notification = "An error occurred during deleting movie.Please try again.";
+            const notification = "An error occurred during removing movie from bookmark.Please try again.";
             commit("notifications/setNotification", notification, { root: true })
         }
     }

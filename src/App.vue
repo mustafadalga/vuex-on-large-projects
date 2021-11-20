@@ -1,37 +1,51 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-dark mb-5">
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="container-fluid">
       <ul class="navbar-nav">
         <li class="nav-item">
           <router-link class="nav-link text-white" to="/">Home</router-link>
         </li>
+        <li class="nav-item">
+          <router-link class="nav-link text-white" to="/bookmarks">Bookmarks</router-link>
+        </li>
       </ul>
+
+      <div class="d-flex">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <router-link class="nav-link text-white" to="/profile">Profile</router-link>
+          </li>
+        </ul>
+      </div>
     </div>
+
+
   </nav>
 
-<div class="my-3">
-  <Notification
-      v-for="notification in getNotifications"
-      :key="notification"
-      :notification="notification"/>
-</div>
+  <div class="my-3">
+    <Notification
+        v-for="notification in getNotifications"
+        :key="notification"
+        :notification="notification"/>
+  </div>
 
   <router-view/>
 </template>
 
 <script>
-import { mapActions,mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import Notification from "@/components/Notification";
 
 export default {
   components: { Notification },
-  computed:{
-    ...mapGetters('notifications',['getNotifications']),
+  computed: {
+    ...mapGetters('notifications', [ 'getNotifications' ]),
   },
-  created() {
-    this.setUserInformation();
+  async created() {
+    await this.setUserInformation();
     this.setMovies();
   },
+
   methods: {
     ...mapActions('movies', [ 'setMovies' ]),
     ...mapActions('auth', [ 'setUserInformation' ])
